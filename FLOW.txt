@@ -1,0 +1,55 @@
+AI News Podcast Generator — How It Works
+The Pipeline (What happens when you click "Generate Now")
+1. SCRAPE → 2. RANK → 3. SUMMARIZE → 4. SCRIPT → 5. AUDIO → 6. SAVE → 7. DELIVER
+Step 1: Scrape News — Pulls articles from 8 RSS feeds (TechCrunch, Wired, The Verge, VentureBeat, MIT Tech Review, Hacker News, ArXiv, ProductHunt). Falls back to Bright Data proxy scraping if RSS fails.
+
+Step 2: AI Ranking — Sends all articles to GPT-4o, which picks the top 5-7 most important stories. Each gets tagged (#LLM, #Startup, #Research, etc.), a sentiment label, and a "why it matters" blurb.
+
+Step 3: Summarize — GPT-4o creates concise 2-3 sentence summaries of each selected story.
+
+Step 4: Script Generation — GPT-4o writes a full podcast script (~1200 words, 8-10 min read) with intro, story segments, transitions, and outro. Conversational tone, timestamped.
+
+Step 5: Text-to-Speech — ElevenLabs converts the script to a natural-sounding MP3 audio file.
+
+Step 6: Save — Stores audio, transcript (.txt), PDF transcript, and metadata to the file system + SQLite database.
+
+Step 7: Deliver — Sends email to all subscribers with audio link + PDF attachment.
+
+All Features
+Feature	Description
+Multi-source scraping	8 news sources, RSS-first with Bright Data proxy fallback
+AI ranking & filtering	GPT-4o selects top stories by novelty, impact, relevance
+Topic tagging	Auto-tags: #LLM, #OpenSource, #Startup, #Research, #Regulation, etc.
+Sentiment analysis	Each story labeled positive/negative/neutral
+Podcast script	Full professional script with intro, segments, transitions, outro
+Text-to-Speech	ElevenLabs Turbo v2 for natural audio
+PDF transcript	Formatted PDF with timestamps, sections, metadata
+Email delivery	HTML email with audio link + PDF to subscribers
+Weekly digest	Sunday recap email of the whole week's stories
+Topic selection	User chooses podcast category (LLMs, Startups, Research, etc.)
+SSE progress	Real-time progress bar during generation
+Dry Run mode	Test generation without audio (saves time/money)
+Cron scheduling	Auto-generates daily at 7 AM (configurable)
+Episode library	Browse all past episodes with status, date, topics
+Custom audio player	Play/pause, seek, speed control (0.75x-1.5x), volume
+Transcript viewer	Read along with timestamps and section headers
+Subscriber management	Add/remove email subscribers
+Analytics dashboard	Total episodes, duration, most popular topics
+Rate limiting	Protects API endpoints from abuse
+Retry logic	3 automatic retries on all external API calls
+Graceful fallbacks	RSS if Bright Data fails, script-only if TTS fails
+Docker support	docker-compose for production deployment
+Tech Stack
+Frontend: React 18 + Vite + TailwindCSS
+Backend: Node.js + Express
+Database: SQLite (sql.js)
+AI: OpenAI GPT-4o
+TTS: ElevenLabs
+Scraping: RSS feeds + Bright Data
+Scheduling: node-cron
+Email: Nodemailer (Gmail SMTP)
+PDF: PDFKit
+Current Status on Your Machine
+✅ Scraping — working (36 articles found) ✅ AI Ranking — working (7 stories selected) ✅ Script Generation — working (900-1100 words) ✅ PDF Generation — working ✅ Database — working ✅ Dashboard UI — working ❌ Audio (ElevenLabs) — 401 error (API key may be expired/revoked since you shared it publicly) ❌ Email — minor JSON bug fixed, needs Gmail app password configured
+
+To get audio working: generate a fresh ElevenLabs API key (the one you shared is compromised) and try a new episode.
