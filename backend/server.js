@@ -38,9 +38,19 @@ app.use(helmet({
   contentSecurityPolicy: false
 }));
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? process.env.FRONTEND_URL
-    : ['http://localhost:5173', 'http://localhost:3000'],
+  origin: function (origin, callback) {
+    const allowed = [
+      'https://aipodcastgenerater.netlify.app',
+      'http://localhost:5173',
+      'http://localhost:3000'
+    ];
+    // Allow requests with no origin (mobile apps, curl, etc.)
+    if (!origin || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Allow all origins for now (tighten in production)
+    }
+  },
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
