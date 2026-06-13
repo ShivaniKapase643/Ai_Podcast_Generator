@@ -75,3 +75,22 @@ body {
 .pulse-dot {
   animation: pulse-dot 1.5s ease-in-out infinite;
 }
+
+/* Mobile-specific */
+@media (max-width: 768px) {
+  .audio-progress::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+  }
+  .audio-progress::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Safe area for mobile bottom nav */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 4rem);
+  }
+}

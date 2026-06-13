@@ -75,25 +75,25 @@ export default function GenerateButton({ onComplete }) {
       </div>
 
       {/* Generate Controls */}
-      <div className="bg-white rounded-2xl p-6 border border-surface-300 shadow-sm">
-        <div className="flex items-center justify-between mb-5">
+      <div className="bg-white rounded-2xl p-4 md:p-6 border border-surface-300 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
           <div>
-            <h2 className="text-xl font-bold text-surface-900">Generate Episode</h2>
+            <h2 className="text-lg md:text-xl font-bold text-surface-900">Generate Episode</h2>
             <p className="text-sm text-surface-600 mt-1">Create today's AI news podcast with one click</p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={startDryRun}
               disabled={isGenerating}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-surface-100 text-surface-700 hover:bg-surface-200 transition-all text-sm font-semibold border border-surface-300 disabled:opacity-40"
+              className="flex items-center gap-2 px-3 md:px-4 py-2.5 rounded-xl bg-surface-100 text-surface-700 hover:bg-surface-200 transition-all text-sm font-semibold border border-surface-300 disabled:opacity-40"
             >
               <Zap className="w-4 h-4" />
-              Dry Run
+              <span className="hidden sm:inline">Dry Run</span>
             </button>
             {isGenerating ? (
               <button
                 onClick={cancelGeneration}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 text-red-700 hover:bg-red-100 transition-all text-sm font-semibold border border-red-200"
+                className="flex items-center gap-2 px-3 md:px-4 py-2.5 rounded-xl bg-red-50 text-red-700 hover:bg-red-100 transition-all text-sm font-semibold border border-red-200"
               >
                 <XCircle className="w-4 h-4" />
                 Cancel
@@ -101,7 +101,7 @@ export default function GenerateButton({ onComplete }) {
             ) : (
               <button
                 onClick={startGeneration}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-brand text-white font-bold hover:bg-brand-dark transition-all text-sm shadow-md glow"
+                className="flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-xl bg-brand text-white font-bold hover:bg-brand-dark transition-all text-sm shadow-md glow"
               >
                 <Play className="w-4 h-4" />
                 Generate Now

@@ -144,14 +144,14 @@ export default function AudioPlayer({ episode, compact = false, user }) {
 
       {/* Controls */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           <button onClick={() => skip(-15)} className="text-surface-500 hover:text-surface-800 transition-colors p-1">
             <SkipBack className="w-4 h-4" />
           </button>
           <button
             onClick={togglePlay}
             disabled={audioError || episode.status !== 'completed'}
-            className="w-11 h-11 rounded-full bg-brand text-white flex items-center justify-center hover:bg-brand-dark shadow-md transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            className="w-10 h-10 md:w-11 md:h-11 rounded-full bg-brand text-white flex items-center justify-center hover:bg-brand-dark shadow-md transition-all disabled:opacity-30 disabled:cursor-not-allowed"
           >
             {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-0.5" />}
           </button>
@@ -160,13 +160,13 @@ export default function AudioPlayer({ episode, compact = false, user }) {
           </button>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 md:gap-3">
           <div className="flex gap-0.5 bg-surface-100 rounded-lg p-0.5 border border-surface-200">
             {speeds.map(speed => (
               <button
                 key={speed}
                 onClick={() => setPlaybackRate(speed)}
-                className={`px-2 py-1 rounded-md text-xs font-bold transition-all ${
+                className={`px-1.5 md:px-2 py-1 rounded-md text-xs font-bold transition-all ${
                   playbackRate === speed ? 'bg-brand text-white' : 'text-surface-600 hover:text-surface-900'
                 }`}
               >
@@ -176,7 +176,7 @@ export default function AudioPlayer({ episode, compact = false, user }) {
           </div>
 
           {!compact && (
-            <div className="flex items-center gap-2">
+            <div className="hidden sm:flex items-center gap-2">
               <button onClick={toggleMute} className="text-surface-500 hover:text-surface-800">
                 {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
               </button>

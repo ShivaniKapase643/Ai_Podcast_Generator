@@ -31,7 +31,7 @@ export default function StatsPanel({ stats }) {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
         <div className="bg-white rounded-2xl border border-surface-300 p-6 shadow-sm">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
