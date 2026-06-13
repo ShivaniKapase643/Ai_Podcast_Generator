@@ -164,9 +164,19 @@ export default function GenerateButton({ onComplete }) {
         {/* Success */}
         {result && !isGenerating && (
           <div className="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200">
-            <p className="text-sm text-emerald-700 font-semibold">
+            <p className="text-sm text-emerald-700 font-bold mb-1">
               ✅ Episode #{result.episode_number} generated successfully!
             </p>
+            <p className="text-xs text-emerald-600">
+              {result.status === 'completed' 
+                ? '🎧 Audio is ready to play! Select the episode from the Episodes tab or click below.' 
+                : '📝 Script & transcript saved. Audio was not generated (TTS service issue — episode still available as text).'}
+            </p>
+            <button
+              onClick={() => { if (onComplete) onComplete(); }}
+              className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg text-xs font-bold hover:bg-emerald-700 transition-all">
+              🎙️ Go to Episodes
+            </button>
           </div>
         )}
       </div>

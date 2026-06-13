@@ -112,14 +112,30 @@ export default function AudioPlayer({ episode, compact = false, user }) {
       )}
 
       {/* Notice */}
-      {(audioError || episode.status !== 'completed') && (
+      {(audioError || (episode.status !== 'completed' && episode.status !== 'draft')) && (
         <div className="flex items-center gap-2 p-3 mb-4 rounded-xl bg-amber-50 border border-amber-200">
           <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
           <p className="text-xs text-amber-700 font-medium">
-            {episode.status === 'draft' ? 'Dry run — no audio generated. Use "Generate Now" for full audio.' :
-             episode.status === 'failed' ? 'Generation failed — audio unavailable.' :
+            {episode.status === 'failed' ? 'Generation failed — audio unavailable.' :
              episode.status === 'generating' ? 'Audio is still being generated...' :
-             'Audio file unavailable. Check ElevenLabs API key & Voice ID in backend .env.'}
+             'Audio file unavailable for this episode.'}
+          </p>
+        </div>
+      )}
+
+      {/* Status: completed with audio */}
+      {episode.status === 'completed' && !audioError && audioLoaded && (
+        <div className="flex items-center gap-2 p-2 mb-3 rounded-lg bg-emerald-50 border border-emerald-200">
+          <span className="text-xs text-emerald-700 font-semibold">✅ Audio ready — press play to listen</span>
+        </div>
+      )}
+
+      {/* Draft episode notice */}
+      {episode.status === 'draft' && (
+        <div className="flex items-center gap-2 p-3 mb-4 rounded-xl bg-blue-50 border border-blue-200">
+          <AlertCircle className="w-4 h-4 text-blue-600 shrink-0" />
+          <p className="text-xs text-blue-700 font-medium">
+            This was a dry run — no audio generated. Click "Generate Now" for a full episode with audio.
           </p>
         </div>
       )}
