@@ -27,7 +27,9 @@ export default function AuthPage({ onAuth }) {
       localStorage.setItem('authToken', res.data.token);
       onAuth(res.data.user);
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong. Please try again.');
+      const errData = err.response?.data?.error;
+      const errMsg = typeof errData === 'string' ? errData : errData?.message || err.message || 'Something went wrong. Please try again.';
+      setError(errMsg);
     } finally {
       setLoading(false);
     }

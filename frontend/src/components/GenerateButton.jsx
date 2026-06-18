@@ -45,10 +45,10 @@ export default function GenerateButton({ onComplete }) {
   return (
     <div className="space-y-4">
       {/* Topic Selector */}
-      <div className="bg-white rounded-2xl p-6 border border-surface-300 shadow-sm">
-        <div className="flex items-center gap-2 mb-4">
+      <div className="bg-white rounded-2xl p-5 md:p-7 border border-surface-200 shadow-sm card-hover">
+        <div className="flex items-center gap-2 mb-5">
           <Sparkles className="w-5 h-5 text-purple-600" />
-          <h3 className="text-base font-bold text-surface-900">Choose Podcast Topic</h3>
+          <h3 className="text-lg font-extrabold text-surface-900">Choose Podcast Topic</h3>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {(showAllTopics ? PODCAST_CATEGORIES : PODCAST_CATEGORIES.slice(0, 8)).map(cat => (
@@ -75,17 +75,17 @@ export default function GenerateButton({ onComplete }) {
       </div>
 
       {/* Generate Controls */}
-      <div className="bg-white rounded-2xl p-4 md:p-6 border border-surface-300 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
+      <div className="bg-white rounded-2xl p-5 md:p-7 border border-surface-200 shadow-sm card-hover">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h2 className="text-lg md:text-xl font-bold text-surface-900">Generate Episode</h2>
-            <p className="text-sm text-surface-600 mt-1">Create today's AI news podcast with one click</p>
+            <h2 className="text-xl md:text-2xl font-extrabold text-surface-900">Generate Episode</h2>
+            <p className="text-base text-surface-600 mt-1">Create today's AI news podcast with one click</p>
           </div>
           <div className="flex gap-2">
             <button
               onClick={startDryRun}
               disabled={isGenerating}
-              className="flex items-center gap-2 px-3 md:px-4 py-2.5 rounded-xl bg-surface-100 text-surface-700 hover:bg-surface-200 transition-all text-sm font-semibold border border-surface-300 disabled:opacity-40"
+              className="flex items-center gap-2 px-4 md:px-5 py-3 rounded-xl bg-surface-100 text-surface-700 hover:bg-surface-200 active:bg-surface-300 transition-all text-sm font-bold border border-surface-200 disabled:opacity-40"
             >
               <Zap className="w-4 h-4" />
               <span className="hidden sm:inline">Dry Run</span>
@@ -93,7 +93,7 @@ export default function GenerateButton({ onComplete }) {
             {isGenerating ? (
               <button
                 onClick={cancelGeneration}
-                className="flex items-center gap-2 px-3 md:px-4 py-2.5 rounded-xl bg-red-50 text-red-700 hover:bg-red-100 transition-all text-sm font-semibold border border-red-200"
+                className="flex items-center gap-2 px-4 md:px-5 py-3 rounded-xl bg-red-50 text-red-700 hover:bg-red-100 active:bg-red-200 transition-all text-sm font-bold border border-red-200"
               >
                 <XCircle className="w-4 h-4" />
                 Cancel
@@ -101,7 +101,7 @@ export default function GenerateButton({ onComplete }) {
             ) : (
               <button
                 onClick={startGeneration}
-                className="flex items-center gap-2 px-4 md:px-6 py-2.5 rounded-xl bg-brand text-white font-bold hover:bg-brand-dark transition-all text-sm shadow-md glow"
+                className="flex items-center gap-2 px-5 md:px-7 py-3 rounded-xl bg-brand text-white font-extrabold hover:bg-brand-dark active:scale-95 transition-all text-sm shadow-lg glow"
               >
                 <Play className="w-4 h-4" />
                 Generate Now
@@ -137,20 +137,21 @@ export default function GenerateButton({ onComplete }) {
 
         {/* Progress Bar */}
         {isGenerating && (
-          <div className="space-y-3 p-4 rounded-xl bg-surface-50 border border-surface-300">
-            <div className="relative h-3 bg-surface-200 rounded-full overflow-hidden">
+          <div className="space-y-3 p-5 rounded-2xl bg-surface-50 border border-surface-200 animate-fadeIn">
+            <div className="relative h-4 bg-surface-200 rounded-full overflow-hidden">
               <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-brand to-emerald-400 rounded-full transition-all duration-700 ease-out"
+                className="absolute inset-y-0 left-0 progress-shimmer rounded-full transition-all duration-700 ease-out"
                 style={{ width: `${Math.max(progress, 3)}%` }}
               />
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Loader2 className="w-4 h-4 text-brand animate-spin" />
-                <span className="text-sm font-semibold text-surface-800">{message}</span>
+                <Loader2 className="w-5 h-5 text-brand animate-spin" />
+                <span className="text-base font-bold text-surface-800">{message}</span>
               </div>
-              <span className="text-sm font-bold text-brand">{progress}%</span>
+              <span className="text-lg font-extrabold text-brand">{progress}%</span>
             </div>
+            <p className="text-xs text-surface-500">💡 You can switch to other tabs — generation continues in the background!</p>
           </div>
         )}
 

@@ -25,7 +25,8 @@ client.interceptors.request.use(config => {
 client.interceptors.response.use(
   response => response,
   error => {
-    const message = error.response?.data?.error || error.message || 'Network error';
+    const errData = error.response?.data?.error;
+    const message = typeof errData === 'string' ? errData : errData?.message || error.message || 'Network error';
     console.error('API Error:', message);
     return Promise.reject(error);
   }

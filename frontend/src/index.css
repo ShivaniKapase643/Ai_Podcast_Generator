@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
 }
 
 body {
@@ -15,82 +19,105 @@ body {
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* Smooth page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease;
 }
 
 /* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
 /* Audio player */
 .audio-progress::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #0d9488;
   cursor: pointer;
   border: 3px solid #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: transform 0.15s ease;
 }
-
+.audio-progress::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
 .audio-progress::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #0d9488;
   cursor: pointer;
   border: 3px solid #fff;
 }
 
-/* Glow animation for generate button */
+/* Glow for generate button */
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 6px rgba(13, 148, 136, 0.2); }
-  50% { box-shadow: 0 0 18px rgba(13, 148, 136, 0.4); }
+  0%, 100% { box-shadow: 0 0 8px rgba(13, 148, 136, 0.25); }
+  50% { box-shadow: 0 0 20px rgba(13, 148, 136, 0.5); }
 }
-
-.glow {
-  animation: glow 2s ease-in-out infinite;
-}
+.glow { animation: glow 2s ease-in-out infinite; }
 
 @keyframes pulse-dot {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.6; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+.pulse-dot { animation: pulse-dot 1.5s ease-in-out infinite; }
+
+/* Slide transitions */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slideUp { animation: slideUp 0.4s ease-out; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fadeIn { animation: fadeIn 0.3s ease; }
+
+/* Card hover effect */
+.card-hover {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
-.pulse-dot {
-  animation: pulse-dot 1.5s ease-in-out infinite;
+/* Progress bar shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.progress-shimmer {
+  background: linear-gradient(90deg, #0d9488 25%, #14b8a6 50%, #0d9488 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
 }
 
-/* Mobile-specific */
+/* Mobile */
 @media (max-width: 768px) {
-  .audio-progress::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px;
-  }
-  .audio-progress::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-  }
+  html { font-size: 15px; }
+  .audio-progress::-webkit-slider-thumb { width: 22px; height: 22px; }
+  .audio-progress::-moz-range-thumb { width: 22px; height: 22px; }
 }
 
-/* Safe area for mobile bottom nav */
+/* Safe area */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
-  .pb-safe {
-    padding-bottom: calc(env(safe-area-inset-bottom) + 4rem);
-  }
+  .pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem); }
 }

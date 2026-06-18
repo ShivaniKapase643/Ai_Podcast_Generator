@@ -28,7 +28,8 @@ export default function AuthModal({ onClose, onAuth }) {
       localStorage.setItem('authToken', res.data.token);
       onAuth(res.data.user);
     } catch (err) {
-      setError(err.response?.data?.error || 'Something went wrong');
+      const errData = err.response?.data?.error;
+      setError(typeof errData === 'string' ? errData : errData?.message || 'Something went wrong');
     } finally {
       setLoading(false);
     }
